@@ -1,0 +1,44 @@
+version: '3.5' 
+# uva_notebooks
+# Лимитирование памяти с 3 версии только с swarm
+# Запуск по команде --> docker-compose --compatibility  up -d (no swarm)
+services: 
+    datascience-notebook:
+        cap_add: 
+            - SYS_ADMIN
+            - DAC_READ_SEARCH
+        build: 
+            context: .
+            dockerfile: dockerfile #указываем явно файл
+        container_name: uva_notebooks
+        # image: uva/notebooks
+        volumes: 
+            - /home/locadm/uva_notebooks:/home/jovyan/work
+        ports: 
+            - "8076:8888" #dev
+        
+        # Работает только со swarm
+        
+       # mem_limit: 16G
+       #cpus: '1.8'
+        deploy:
+            resources:
+                limits:
+                    cpus: '1.8'
+                    memory: 16G
+        
+        stdin_open: true # docker run -i 
+        tty: true        # docker run -t
+        
+        network_mode: bridge
+        # networks: 
+        #    - docker_net_stable 
+
+
+# networks:
+#    docker_net_stable:
+#      driver: bridge
+#      ipam:
+#        driver: default
+#        config:
+#          - subnet:  12.0.1.0/24 #AT-везде указываем штатную подсеть для докера 172.28.1.0/24
