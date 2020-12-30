@@ -1,4 +1,4 @@
-FROM uva/notebooks
+FROM jupyter/datascience-notebook
 
 #ENV http_proxy msc01-cfw01.pgk.rzd:9090
 #ENV https_proxy msc01-cfw01.pgk.rzd:9090
