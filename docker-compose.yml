@@ -10,35 +10,14 @@ services:
         build: 
             context: .
             dockerfile: dockerfile #указываем явно файл
-        container_name: uva_notebooks
+        container_name: ds_notebook
         # image: uva/notebooks
         volumes: 
-            - /home/locadm/uva_notebooks:/home/jovyan/work
+            - /home/at/notebooks:/home/jovyan/work
         ports: 
-            - "8076:8888" #dev
-        
-        # Работает только со swarm
-        
-       # mem_limit: 16G
-       #cpus: '1.8'
-        deploy:
-            resources:
-                limits:
-                    cpus: '1.8'
-                    memory: 16G
+            - "8888:8888"
         
         stdin_open: true # docker run -i 
         tty: true        # docker run -t
         
         network_mode: bridge
-        # networks: 
-        #    - docker_net_stable 
-
-
-# networks:
-#    docker_net_stable:
-#      driver: bridge
-#      ipam:
-#        driver: default
-#        config:
-#          - subnet:  12.0.1.0/24 #AT-везде указываем штатную подсеть для докера 172.28.1.0/24
